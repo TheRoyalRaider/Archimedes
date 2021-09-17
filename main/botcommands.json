@@ -1,0 +1,34 @@
+{
+    "commands": [
+        {
+            "name": "Ping",
+            "desc": "Pong!",
+            "level": 0
+        },
+        {
+            "name": "Echo",
+            "desc": "Repeats any text after the command.",
+            "level": 0
+        },
+        {
+            "name": "Help",
+            "desc": "Lists all bot commands.",
+            "level": 0
+        },
+        {
+            "name": "Opgg",
+            "desc": "Sends an embed summary of the player's OP.GG",
+            "level": 0
+        },
+        {
+            "name": "Disconnect",
+            "desc": "Logs out the bot client.",
+            "level": 10
+        },
+        {
+            "name": "Info",
+            "desc": "Replies with bot information such as the token.",
+            "level": 10
+        }
+    ]
+}
