@@ -62,7 +62,8 @@ async def help(client, message, user_priority):
     
     # Add Commands To The String
     for c in command_list["commands"]:
-        command_list_str += c["name"] + " : " + c["desc"] + "\n"
+        if(c["level"] <= user_priority):
+            command_list_str += c["name"] + " : " + c["desc"] + "\n"
     
     await message.channel.send(embed = embed_creator.create_embed("List of Commands", command_list_str, discord.Color.dark_red()))
 
@@ -70,40 +71,65 @@ async def opgg(client, message, user_priority):
     
     command = message.content.split(" ")[1:]
     
+    # Request HTML
     url = "https://na.op.gg/summoner/userName={}".format("_".join(command))
     req = urllib.request.Request(url)
     
     with urllib.request.urlopen(req) as response:
         
+        # Create Soup Object
         html = response.read()
         soup = BeautifulSoup(html, "html.parser")
         
+        # Get Icon URL
         icon_url = "https:" + str(soup.find_all(class_="ProfileImage")[0]).split("\"")[3]
         try:
             rank = str(soup.find_all(class_="TierRank")[0]).split(">")[1].split("<")[0] + " " + str(soup.find_all(class_="LeaguePoints")[0]).split(">")[1].split("<")[0].replace("	", "").replace("\n", "") + " (" + str(soup.find_all(class_="WinRatio")[0]).split(">")[1].split("<")[0].replace("	", "").replace("\n", "") + ")"
         except Exception:
             rank = "Unranked"
         
-        most_played = "**Most Played Champions:**"
+        # Get Riot ID
+        name = str(soup.find_all(class_="Name")[0]).split(">")[1].split("<")[0]
         
+        # Get Most Played Champs
+        most_played = "**Most Played Champions:**"
         champs = soup.find_all(class_="ChampionBox Ranked")
         
         if(len(champs) > 5):
             champs = champs[:5]
         else:
             champs = champs[:len(champs)]
-            
+        
+        # Add Champion, Games, and Winrate % To Description
         for box in champs:
-            #print(str(box) + "\n\n\n\n")
+            
             champ_name = str(box).split("alt=\"")[1].split("\"")[0]
             games_played = str(box).split("class=\"Title\">")[1].split("</div>")[0].replace("	", "").replace("\n", "")
             winrate = str(box).split("title=\"Win Ratio\">")[1].split("</div>")[0].replace("	", "").replace("\n", "")
             
             most_played += f"\n{champ_name}: {winrate} *({games_played} Played)*"
+        
+        # Show W/L For Last 10 Games Played
+        recent_games = ""
+        games = soup.find_all(class_="GameResult")
+        
+        if(len(games) > 10):
+            games = games[:10]
+        else:
+            games = games[:len(games)]
+        
+        # Add Win/Loss To A New Field
+        for box in games:
             
+            print(str(box).split("	"))
+            if "Defeat" in (str(box).split("	")):
+                recent_games += f":red_circle:"
+            else:
+                recent_games += f":blue_circle:"
+        
         profile_embed = embed_creator.create_embed(rank, most_played, discord.Color.blue())
-        profile_embed.set_author(name = "{}".format(" ".join(command)), url = url, icon_url = icon_url)
-        #profile_embed.set_footer("Test")
+        profile_embed.set_author(name = name, url = url, icon_url = icon_url)
+        profile_embed.add_field(name = "*Recent Games:*", value = recent_games, inline = False)
         
         await message.channel.send(embed = profile_embed)
         
