@@ -3,36 +3,55 @@
         {
             "name": "Ping",
             "desc": "Pong!",
+            "usage": "<command>",
             "level": 0
         },
         {
             "name": "Echo",
             "desc": "Repeats any text after the command.",
-            "level": 0
+            "usage": "<command> <string>",
+            "level": 1
         },
         {
             "name": "Help",
             "desc": "Lists all bot commands.",
+            "usage": "<command>",
             "level": 0
         },
         {
             "name": "Opgg",
-            "desc": "Sends an embed summary of the player's OP.GG",
+            "desc": "Sends a summary of the specified player's League of Legends OP.GG page.",
+            "usage": "<command> <id>",
             "level": 0
+        },
+        {
+            "name": "Purge",
+            "desc": "Removes the specified number of messages from the chat.",
+            "usage": "<command> <integer>",
+            "level": 1
         },
         {
             "name": "Disconnect",
             "desc": "Logs out the bot client.",
+            "usage": "<command>",
             "level": 10
         },
         {
             "name": "Info",
             "desc": "Replies with bot information such as the token.",
+            "usage": "<command>",
             "level": 10
         },
         {
             "name": "ListServers",
             "desc": "Displays a list of all servers the bot is currently active in.",
+            "usage": "<command>",
+            "level": 10
+        },
+        {
+            "name": "Announce",
+            "desc": "Announces the following message to all channels named bot_announcements. Uses \" : \" as a split for title and description and \\n as a new field.",
+            "usage": "<command> <title> : <description> \\n <name> : <value> \\n ...",
             "level": 10
         }
     ]

@@ -7,5 +7,22 @@
             "name": "NorthernEclipse#6617",
             "level": 10
         }
+    ],
+    "role_levels": [
+        {
+            "names": [
+                "moderator",
+                "mod",
+                "officer"
+            ],
+            "level": 1
+        },
+        {
+            "names": [
+                "admin",
+                "administrator"
+            ],
+            "level": 2
+        }
     ]
 }
