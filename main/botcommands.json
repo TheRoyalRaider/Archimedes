@@ -29,6 +29,11 @@
             "name": "Info",
             "desc": "Replies with bot information such as the token.",
             "level": 10
+        },
+        {
+            "name": "ListServers",
+            "desc": "Displays a list of all servers the bot is currently active in.",
+            "level": 10
         }
     ]
 }
