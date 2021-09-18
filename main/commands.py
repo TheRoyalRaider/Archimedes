@@ -203,6 +203,7 @@ async def info(client, message, user_priority):
 
 # LIST SERVERS
 async def listservers(client, message, user_priority):
+    
     guilds_str = ""
     guilds = client.guilds
     for guild in guilds:
@@ -241,7 +242,6 @@ async def announce(client, message, user_priority):
         await message.channel.send(embed = embed_creator.create_embed("Success", "Announcement Sent Successfully", discord.Color.dark_red()))
     
     except Exception:
-        
         await incorrect_usage(client, message, user_priority)
         
 # Load Commands
