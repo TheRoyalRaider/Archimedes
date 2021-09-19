@@ -15,6 +15,7 @@ bot_info = json.load(open(os.path.join(os.path.dirname(__file__), "./botinfo.jso
 class MyClient(discord.Client):
     
     async def on_ready(self):
+        
         print(f"Logged on as {self.user}")
         # Change Status
         await self.change_presence(activity=discord.Game("v" + bot_info["version"]))
@@ -72,7 +73,7 @@ class MyClient(discord.Client):
         elif before.channel != None and "Voice Channel ID: " in before.channel.name:
             if(len(before.channel.members) <= 0):
                 await before.channel.delete()
-        
+
 # Start Client
 client = MyClient()
 client.run(token)

@@ -64,6 +64,7 @@ async def echo(client, message, user_priority):
     try:
         # Echo Whatever Comes After The Echo Command
         await message.channel.send(embed = embed_creator.create_embed(" ".join(message.content.split(" ")[1:]), "", discord.Color.dark_red()))
+    
     except Exception:
         await incorrect_usage(client, message, user_priority)
     
@@ -76,7 +77,7 @@ async def help(client, message, user_priority):
     # Add Commands To The String
     for c in command_list["commands"]:
         if(c["level"] <= user_priority):
-            command_list_str += c["name"] + " : " + c["desc"] + "\n"
+            command_list_str += "**" + c["name"] + "** : " + c["desc"] + "\n"
     
     await message.channel.send(embed = embed_creator.create_embed("List of Commands", command_list_str, discord.Color.dark_red()))
 
@@ -244,5 +245,5 @@ async def announce(client, message, user_priority):
     except Exception:
         await incorrect_usage(client, message, user_priority)
         
-# Load Commands
+# Load Commands List
 command_list = json.load(open(os.path.join(os.path.dirname(__file__), "./botcommands.json")))
